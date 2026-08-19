@@ -1,33 +1,386 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  title: ERPWELL- Online Sales Management Software
+  short_title: ERPWELL
+  full_title: ERPWELL - Online Sales Management Software
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              taken: already exists. Please choose a different email or login
+              blank: cannot be blank
+            password_confirmation:
+              confirmation: Password confirmation does not match
+    attributes:
+      product:
+        title: Product
+        code: Product Code
+        name: Product Name
+        product_group_id: Product Group
+        cost_price: Cost Price
+        sale_price: Sale Price
+        producer_id: Producer
+        in_stock: Stock Quantity
+        in_stock_short: Stock
+        in_stock_min: Minimum Stock
+        in_stock_max: Maximum Stock
+        in_stock_range: Inventory levels
+        description: Detailed Description
+        note: Note
+        basic_unit: Basic Unit
+        quantity: Quantity
+        unit_price: Unit Price
+        discount_money: Discount
+        import_price: Import Price
+        final_price: Final Price
+      customer:
+        name: Customer Name
+        code: Customer Code
+        customer_type: Customer Type
+        company_name: Company Name
+        phone: Phone Number
+        birthday: Birthday
+        address: Address
+        sex: Gender
+        tax: Tax ID
+        email: Email
+        area: Area
+        description: Description
+      supplier:
+        name: Supplier Name
+        code: Supplier Code
+        supplier_type: Supplier Type
+        company_name: Company Name
+        phone: Phone Number
+        birthday: Birthday
+        address: Address
+        sex: Gender
+        tax: Tax ID
+        email: Email
+        area: Area
+        description: Description
+      user:
+        login: Username or Email
+        password: Password
+        password_confirmation: Password Confirmation
+        current_password: Current Password
+        new_password: New Password
+        new_password_confirmation: Confirm New Password
+        remember_me: Remember Me
+        current_sign_in_at: Current Sign In At
+        last_sign_in_at: Last Sign In At
+        phone: Phone Number
+        fullname: Full Name
+        username: Username
+        birthday: Birthday
+        address: Address
+        role: Role
+        email: Email
+        area: Area
+        commune: Commune
+      purchase_order:
+        title: Purchase Order
+        name: Request Name
+        code: Purchase Order Code
+        supplier: Supplier
+        supplier_choose: Supplier (Do not select if there are multiple suppliers)
+        note: Note
+        product: Product
+        status: Status
+        statuses:
+          created: Draft
+          checked: Checked
+          confirmed: Confirmed
+          completed: Completed
+          canceled: Canceled
+          approved: Approved
+      product_purchase_order:
+        product_id: Product
+        quantity: Quantity
+        unit_price: Unit Price
+        supplier: Supplier
+      role:
+        name: Role Name
+      purchase:
+        title: Purchase
+        code: Purchase Code
+        name: Purchase Name
+        supplier: Supplier
+        note: Note
+        status: Status
+        date: Date
+        user: User
+        purchaser: Purchaser
+        total_price: Total Price
+        discount_money: Discount
+        paid: Amount Paid to Supplier
+        dept: Overpayment
+        price: Amount Due to Supplier
+        statuses:
+          created: Draft
+          purchased: Purchased
+          cancel: Canceled
+      invoice:
+        title: Invoice
+        code: Invoice Code
+        date: Date
+        name: Invoice Name
+        customer: Customer
+        total_price: Total Price
+        sale_off: Discount
+        final_price: Final Price
+        paid: Amount Paid
+        note: Note
+        status: Status
+        statuses:
+          created: Draft
+          completed: Completed
+        user: User
+        seller: Seller
+      report:
+        title: Title
+        content: Content
+      print_template:
+        name: Print Template Name
+        size: Paper Size
+        preview: Preview Print Template
+
+
+  # Translate views
+  products:
+    form:
+      tab_basic_information: Basic Information
+      tab_detail_information: Detailed Description
+      tab_product_part: Product Components
+    new_product_basic:
+      placeholder_code: System will auto-generate if left blank
+      placeholder_name: Enter your product name
+    new_product_detail:
+    new_product_part:
+    index:
+      add_product: Add Product
+      search_placeholer: Enter code, first letter, or product name
+    show:
+      tab_information: Information
+      tab_in_stock_event: In Stock Event
+      tab_in_stock: In Stock
+  customers:
+    form:
+      name_placeholder: Enter customer name
+      code_placeholder: Enter customer code (Leave blank for system to generate)
+      phone_placeholder: Enter customer phone number
+      address_placeholder: Enter address
+      tax_placeholder: Enter tax code
+      email_placeholder: Enter customer email
+      description_placeholder: Enter description
+      company_name_placeholder: Enter company name
+      type_personal: Individual
+      type_company: Company
+    index:
+      search_placeholer: Enter customer code, name, first letter, or phone number
+    show:
+      tab_information: Information
+    user_information:
+      type_personal: Individual
+      type_company: Company
+  suppliers:
+    form:
+      name_placeholder: Enter supplier name
+      code_placeholder: Enter supplier code (Leave blank for system to generate)
+      phone_placeholder: Enter supplier phone number
+      address_placeholder: Enter address
+      tax_placeholder: Enter tax code
+      email_placeholder: Enter supplier email
+      description_placeholder: Enter description
+      company_name_placeholder: Enter company name
+      type_personal: Individual
+      type_company: Company
+    index:
+      search_placeholer: Enter supplier code, name, first letter, or phone number
+    show:
+      tab_information: Information
+    user_information:
+      type_personal: Individual
+      type_company: Company
+  shared:
+    navbar_sale:
+      label_search_product: Enter product code or name (F3)
+  purchase_orders:
+    index:
+      add_purchase_order: Add New Purchase Order
+      search_placeholer: Enter purchase order name or code
+    new:
+      new_purchase_order: New Purchase Order
+    edit:
+      edit_purchase_order: Update Purchase Order
+    form:
+      name_placeholder: Enter purchase order name
+      code_placeholder: Enter purchase order code (Leave blank for system to generate)
+      note_placeholder: Enter note
+    show:
+      add_product: Add Product
+  users:
+    index:
+      user_list: Danh sách người dùng
+    form:
+      fullname_placeholder: Enter full name
+      phone_placeholder: Enter phone number
+      email_placeholder: Enter email
+      username_placeholder: Enter username
+      address_placeholder: Enter address
+    form_owner:
+      fullname_placeholder: Enter full name
+      phone_placeholder: Enter phone number
+      email_placeholder: Enter email
+      username_placeholder: Enter username
+      address_placeholder: Enter address
+    show:
+      tab_information: Information
+      tab_role: Role
+  roles:
+    form:
+      name_placeholder: Enter role name
+  purchases:
+    index:
+      add_purchase: Add Purchase
+      search_placeholer: Enter purchase code or name
+    show:
+      tab_information: Information
+  invoices:
+    index:
+      add_invoice: Add Invoice
+      search_placeholer: Enter invoice code
+    show:
+      tab_information: Information
+  reports:
+    form:
+      title_placeholder: Enter title
+      content_placeholder: Enter content
+
+  customer_tab: Customer
+  supplier_tab: Supplier
+  add_new_customer_button: Add New Customer
+  add_new_supplier_button: Add New Supplier
+  add_new_customer_title: Add New Customer
+  add_new_supplier_title: Add New Supplier
+  add_product: Add Product
+  edit_product: Edit Product
+  edit_customer_title: Edit Customer Information
+  edit_supplier_title: Edit Supplier Information
+  add_new_member: Add New Member
+  edit_member: Edit Member Information
+  add_new_role: Add New Role
+  edit_role: Edit Role
+  add_new_report: Add New Report
+  add_new_print_template: Add Print Template
+  edit_print_template: Edit Print Template
+
+  # Common button
+  btn_manage: Manage
+  btn_sale: Sale
+  close: Close
+  save: Save
+  save_only: Save Only
+  save_cont: Save and Continue
+  search: Search
+  cancel: Cancel
+  copy: Copy
+  back: Back
+  update: Update
+  edit: Edit
+  delete: Delete
+  export_file: Export File
+  print: Print
+  stop_sale: Stop Sales
+  allow_sale: Allow Sales
+  not_update: Not Updated
+
+  # Common Label
+  label_fullname: Full Name
+  label_province: Province/City
+  label_district: District
+  label_commune: Commune/Ward
+  label_male: Male
+  label_female: Female
+
+  # Common prompt
+  prompt_province_select: -- Select Province/City --
+  prompt_district_select: -- Select District --
+  prompt_commune_select: -- Select Commune/Ward --
+  prompt_supplier: -- Select Supplier --
+  prompt_product: -- Select Product --
+  prompt_role: -- Select Role --
+
+  # Notice from controller
+  notice_create_customer_successfully: Customer created successfully
+  notice_update_customer_successfully: Customer updated successfully
+  notice_create_supplier_successfully: Supplier created successfully
+  notice_update_supplier_successfully: Supplier updated successfully
+  notice_create_product_successfully: Product created successfully
+  notice_update_product_successfully: Product updated successfully
+  notice_delete_product_successfully: Product deleted successfully
+  notice_delete_product_error: Error occurred while deleting product.
+
+  will_paginate:
+    previous_label: "&#8592;"
+    next_label: "&#8594;"
+    page_gap: "&hellip;"
+    page_entries_info:
+      single_page:
+        zero:  "No %{model} found"
+        one:   "Displaying one %{model}"
+        other: "Displaying all %{count} %{model}"
+      single_page_html:
+        zero:  "No information found"
+        one:   "Displaying <b>one</b> %{model}"
+        other: "Displaying <b>all&nbsp;%{count}</b> %{model}"
+
+      multi_page: "Displaying %{from} - %{to} of total %{count} %{model}"
+      multi_page_html: "Displaying <b>%{from}&nbsp;-&nbsp;%{to}</b> of total <b>%{count}</b> %{model}"
+    models:
+      product: product
+      invoice: invoice
+      customer: customer
+      supplier: supplier
+      purchase_order: purchase order
+      purchase: purchase
+      user: user
+
+  # Permission
+  role:
+    system:
+      name: System
+      setting: Settings
+      history_activity: Activity History
+      dashboard: Dashboard
+    user:
+      name: User
+    product:
+      name: Product
+    invoice:
+      name: Invoice
+    purchase_order:
+      name: Purchase Order
+      new_purchase: Create Purchase
+      approve: Approve
+    purchase:
+      name: Purchase
+    customer:
+      name: Customer
+    supplier:
+      name: Supplier
+    report:
+      name: Report
+    actions:
+      view: View
+      new: New
+      edit: Edit
+      delete: Delete
+      print: Print
+      export_file: Export File
+      import: Import
+      copy: Copy
+
+
+

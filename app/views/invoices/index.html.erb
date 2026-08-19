@@ -47,8 +47,10 @@
           <div class="input-group-prepend">
             <div class="input-group-text"><%= t(:search) %></div>
           </div>
-          <%= f.text_field :code, placeholder: "Name", class: "form-control" %>
-         
+          <%= f.text_field :code, placeholder: t('.search_placeholer'), class: "form-control" %>
+          <div class="input-group-append">
+            <%= f.submit t(:search), class: "btn btn-info btn-park" %>
+          </div>
         </div>
       <% end %>
     </div>
