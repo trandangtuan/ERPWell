@@ -7,7 +7,7 @@
   <div class="card login-card">
     <div class="card-body">
 
-      <h3 class="card-title"><%= fa_icon "sign-in", text: "Đăng nhập" %></h3>
+      <h3 class="card-title"><%= fa_icon "sign-in", text: "Login" %></h3>
 
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 
@@ -47,10 +47,8 @@
 
 <div class="d-flex justify-content-center help-text-login">
   <div style="text-align: center;">
-    <%= link_to fa_icon("phone", text: "Hỗ trợ: 0349593392") , "#", class: "help-text-login" %>
+    <%= link_to fa_icon("lock", text: "Forgot Password"), new_password_path(resource_name), class: "help-text-login" %>
     |
-    <%= link_to fa_icon("lock", text: "Quên mật khẩu"), new_password_path(resource_name), class: "help-text-login" %>
-    |
-    <%= link_to fa_icon("pencil-square-o", text: "Đăng ký"), new_user_registration_path, class: "help-text-login" %>
+    <%= link_to fa_icon("pencil-square-o", text: "Register"), new_user_registration_path, class: "help-text-login" %>
   </div>
 </div>
