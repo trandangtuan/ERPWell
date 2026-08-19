@@ -68,7 +68,7 @@
                 'user'
             ]),
             welcome_user () {
-                return "Xin chào<br>" + this.user.fullname
+                return "Hello<br>" + this.user.fullname
             }
         },
         methods: {

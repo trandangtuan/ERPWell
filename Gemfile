@@ -32,6 +32,7 @@ gem 'bcrypt', git: 'https://github.com/codahale/bcrypt-ruby.git', :require => 'b
 # Use ActiveStorage variant
 gem 'mini_magick', '~> 4.9'
 gem 'image_processing', '~> 1.2'
+gem 'mimemagic', '~> 0.3.10'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -78,7 +79,8 @@ gem 'paper_trail', '~> 9.0.2'
 gem 'rails-i18n'
 
 # Search: Elasticsearch 6.0.2
-gem 'chewy', '~> 5.1.0'
+gem 'elasticsearch', '~> 6.0.2'
+gem 'chewy', '~> 5.0.0'
 
 # Paginate
 gem 'will_paginate', '~> 3.1.6'

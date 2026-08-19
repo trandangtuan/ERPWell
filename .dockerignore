@@ -1,0 +1,8 @@
+.git
+.idea
+log/*
+node_modules
+tmp/cache
+tmp/pids
+tmp/sockets
+vendor/bundle

@@ -1,0 +1,46 @@
+services:
+  web:
+    build: .
+    command: bundle exec rails server -b 0.0.0.0
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+    environment:
+      RAILS_ENV: development
+      DB_HOST: db
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      DB_NAME: ParkViet_development
+      REDIS_URL: redis://redis:6379/1
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+    depends_on:
+      - db
+      - redis
+      - elasticsearch
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ParkViet_development
+    command: --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    volumes:
+      - mysql:/var/lib/mysql
+
+  redis:
+    image: redis:5-alpine
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.8.23
+    environment:
+      discovery.type: single-node
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+    volumes:
+      - elasticsearch:/usr/share/elasticsearch/data
+
+volumes:
+  node_modules:
+  mysql:
+  elasticsearch:

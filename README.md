@@ -1,5 +1,5 @@
 # Giới thiệu
-Park Việt là phần mềm quản lý bán hàng, kinh doanh sử dụng tại các điểm cửa hàng nhỏ, các đơn vị kinh doanh hộ gia đình, siêu thị hoặc trung tâm thương mại.
+ERPWell là phần mềm quản lý bán hàng, kinh doanh sử dụng tại các điểm cửa hàng nhỏ, các đơn vị kinh doanh hộ gia đình, siêu thị hoặc trung tâm thương mại.
 
 Ưu điểm của Part Việt so với các phần mềm bán hàng truyền thống
 - Phần mềm chạy trên nền web, lưu trữ đám mây, không cần phải cài đặt, chỉ cần khởi tạo và sử dụng
@@ -65,6 +65,126 @@ Một mình làm thì không xuể vậy nên các bạn có thể cùng tham gi
 Phần mềm đương nhiên vẫn là miễn phí nhé mọi người. Ngoài ra, mình muốn hợp tác để làm bản thương mại mà người dùng không cần phải cài đặt server mà sử dụng được ngay. Mình là dân lập trình nên không có kinh nghiệm trong việc kinh doanh nên bạn nào có kinh nghiệm có thể hợp tác với mình nhé. Vì kinh doanh thì phải có bộ phận bán hàng, marketing và thiết bị còn mình thì chỉ biết code thôi :)) 
 
 # Hướng dẫn sử dụng
+## Phân tích nhanh dự án
+- ERPWell là ứng dụng Ruby on Rails 5.2, Ruby 2.5.1, dùng MySQL làm CSDL chính.
+- Giao diện có Rails views truyền thống và phần frontend Vue 2/Webpacker trong `app/javascript`.
+- Dự án đã có i18n với locale mặc định là tiếng Việt tại `config/application.rb`.
+- Các bản dịch nằm trong `config/locales`, hiện có `vi.yml`, `en.yml`, `devise.vi.yml`, `devise.en.yml`.
+- Dự án có Redis cho Action Cable/cache jobs và Elasticsearch 6.x thông qua Chewy.
+
+## Chạy bằng Docker
+Yêu cầu: Docker và Docker Compose.
+
+### Bước 1: Build image
+```bash
+docker compose build
+```
+
+### Bước 2: Tạo database và seed dữ liệu
+```bash
+docker compose run --rm web bundle exec rails db:create db:migrate db:seed
+```
+
+### Bước 3: Import dữ liệu tỉnh/huyện/xã
+```bash
+docker compose exec -T db mysql -uroot -proot --default-character-set=utf8 ParkViet_development < db/diadanh_2018-05-05.sql
+```
+
+Nếu container `db` chưa chạy, bật trước bằng:
+```bash
+docker compose up -d db
+```
+
+### Bước 4: Chạy ứng dụng
+```bash
+docker compose up
+```
+
+Mở trình duyệt tại:
+```text
+http://localhost:3000
+```
+
+Webpack dev server chạy tại cổng `3035`. Các service đi kèm:
+- MySQL: `localhost:3306`, user `root`, password `root`
+- Redis: `localhost:6379`
+- Elasticsearch: `localhost:9200`
+
+### Lệnh thường dùng
+```bash
+docker compose run --rm web bundle exec rails c
+docker compose run --rm web bundle exec rails db:migrate
+docker compose run --rm web bundle exec rails db:seed
+docker compose down
+```
+
+Muốn xóa toàn bộ dữ liệu Docker volume để chạy lại từ đầu:
+```bash
+docker compose down -v
+```
+
+## Hướng dẫn thêm bản dịch
+Dự án dùng Rails I18n. Locale mặc định đang là `:vi` trong `config/application.rb`:
+
+```ruby
+config.i18n.default_locale = :vi
+```
+
+### Thêm hoặc sửa câu chữ tiếng Việt
+Sửa file:
+```text
+config/locales/vi.yml
+```
+
+Ví dụ thêm key mới:
+```yaml
+vi:
+  products:
+    index:
+      export_product: Xuất danh sách hàng hóa
+```
+
+Trong view/controller gọi:
+```erb
+<%= t("products.index.export_product") %>
+```
+
+### Thêm ngôn ngữ mới
+Tạo file locale mới, ví dụ tiếng Nhật:
+```text
+config/locales/ja.yml
+```
+
+Nội dung mẫu:
+```yaml
+ja:
+  products:
+    index:
+      add_product: 商品を追加
+```
+
+Nếu muốn đổi locale mặc định, sửa `config/application.rb`:
+```ruby
+config.i18n.default_locale = :ja
+```
+
+### Dịch Devise
+Các câu đăng nhập/đăng ký/quên mật khẩu của Devise nằm riêng tại:
+```text
+config/locales/devise.vi.yml
+config/locales/devise.en.yml
+```
+
+Khi thêm ngôn ngữ mới, nên tạo thêm file tương ứng, ví dụ:
+```text
+config/locales/devise.ja.yml
+```
+
+### Lưu ý
+- YAML rất nhạy với thụt lề, nên dùng 2 dấu cách cho mỗi cấp.
+- Key trong các file locale phải nằm dưới mã ngôn ngữ tương ứng như `vi:`, `en:`, `ja:`.
+- Sau khi sửa file dịch, restart Rails server để chắc chắn app nhận bản dịch mới.
+
 ## Cài đặt
 ### Bước 1: Cài đặt database
  - rails db:migrate RAILS_ENV=production

@@ -21,7 +21,7 @@
 
           <li class="nav-item">
             <%= link_to "", class: "btn btn-info header-menu" do %>
-              <%= fa_icon "download", text: "Xuất excel" %>
+              <%= fa_icon "download", text: "Export excel" %>
             <% end %>
           </li>
         </ul>
@@ -32,7 +32,7 @@
   <div class="notification">
     <% if @invoices.size == 0 %>
       <div class="alert alert-success alert-dismissible fade show" role="alert">
-        Chưa có đơn hàng nào. Vui lòng chọn <strong>"<%= t('.add_invoice') %>"</strong> để thêm mới!
+        No orders have been received yet. Please select <strong>"<%= t('.add_invoice') %>"</strong> to add a new one!
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -47,10 +47,8 @@
           <div class="input-group-prepend">
             <div class="input-group-text"><%= t(:search) %></div>
           </div>
-          <%= f.text_field :code, placeholder: t('.search_placeholer'), class: "form-control" %>
-          <div class="input-group-append">
-            <%= f.submit t(:search), class: "btn btn-info btn-park" %>
-          </div>
+          <%= f.text_field :code, placeholder: "Name", class: "form-control" %>
+         
         </div>
       <% end %>
     </div>

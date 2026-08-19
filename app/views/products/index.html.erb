@@ -22,12 +22,12 @@
 
           <li class="nav-item">
             <%= link_to new_product_path, class: "btn btn-info header-menu" do %>
-              <%= fa_icon "upload", text: "Nhập excel" %>
+              <%= fa_icon "upload", text: "Import excel" %>
             <% end %>
           </li>
           <li class="nav-item">
             <%= link_to new_product_path, class: "btn btn-info header-menu" do %>
-              <%= fa_icon "download", text: "Xuất excel" %>
+              <%= fa_icon "download", text: "Export excel" %>
             <% end %>
           </li>
 
@@ -51,7 +51,7 @@
   <div class="notification">
     <% if @products.size == 0 %>
       <div class="alert alert-success alert-dismissible fade show" role="alert">
-        Chưa có hàng hóa nào trong cửa hàng của bạn. Vui lòng chọn <strong>"Thêm hàng hóa"</strong> để thêm hàng hóa của bạn!
+        There are no items in your store yet. Please select <strong>"Add Product"</strong> to add your items!
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -66,10 +66,8 @@
           <div class="input-group-prepend">
             <div class="input-group-text"><%= t(:search) %></div>
           </div>
-          <%= f.text_field :name_or_code_or_abbr_name_cont, placeholder: t('.search_placeholer'), class: "form-control" %>
-          <div class="input-group-append">
-            <%= f.submit t(:search), class: "btn btn-info btn-park" %>
-          </div>
+          <%= f.text_field :name_or_code_or_abbr_name_cont, placeholder: "Name", class: "form-control" %>
+         
         </div>
       <% end %>
     </div>

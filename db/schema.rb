@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_05_121658) do
+ActiveRecord::Schema.define(version: 2019_12_20_095323) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -114,13 +114,43 @@ ActiveRecord::Schema.define(version: 2018_06_05_121658) do
     t.string "note"
     t.bigint "user_id"
     t.integer "seller_id"
-    t.datetime "date"
+    t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "store_id"
+    t.integer "status", default: 0
+    t.integer "final_price"
+    t.time "time"
     t.index ["customer_id"], name: "index_invoices_on_customer_id"
     t.index ["store_id"], name: "index_invoices_on_store_id"
     t.index ["user_id"], name: "index_invoices_on_user_id"
+  end
+
+  create_table "members", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "store_id"
+    t.bigint "branch_id"
+    t.bigint "role_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["branch_id"], name: "index_members_on_branch_id"
+    t.index ["role_id"], name: "index_members_on_role_id"
+    t.index ["store_id"], name: "index_members_on_store_id"
+    t.index ["user_id"], name: "index_members_on_user_id"
+  end
+
+  create_table "print_templates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+    t.string "name"
+    t.integer "template_type"
+    t.integer "size"
+    t.text "template", limit: 16777215
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "store_id"
+    t.integer "status", default: 0
+    t.index ["store_id"], name: "index_print_templates_on_store_id"
+    t.index ["user_id"], name: "index_print_templates_on_user_id"
   end
 
   create_table "producers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
@@ -154,8 +184,27 @@ ActiveRecord::Schema.define(version: 2018_06_05_121658) do
     t.integer "final_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "unit_price"
+    t.string "unit"
     t.index ["invoice_id"], name: "index_product_invoices_on_invoice_id"
     t.index ["product_id"], name: "index_product_invoices_on_product_id"
+  end
+
+  create_table "product_purchase_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "purchase_order_id"
+    t.integer "quantity"
+    t.integer "unit_price"
+    t.integer "discount_percent"
+    t.integer "discount_money"
+    t.integer "total_price"
+    t.bigint "supplier_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "unit"
+    t.index ["product_id"], name: "index_product_purchase_orders_on_product_id"
+    t.index ["purchase_order_id"], name: "index_product_purchase_orders_on_purchase_order_id"
+    t.index ["supplier_id"], name: "index_product_purchase_orders_on_supplier_id"
   end
 
   create_table "product_purchases", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
@@ -168,6 +217,7 @@ ActiveRecord::Schema.define(version: 2018_06_05_121658) do
     t.integer "final_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "unit"
     t.index ["product_id"], name: "index_product_purchases_on_product_id"
     t.index ["purchase_id"], name: "index_product_purchases_on_purchase_id"
   end
@@ -202,6 +252,7 @@ ActiveRecord::Schema.define(version: 2018_06_05_121658) do
     t.bigint "store_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "basic_unit"
     t.index ["store_id"], name: "index_products_on_store_id"
     t.index ["user_id"], name: "index_products_on_user_id"
   end
@@ -210,6 +261,24 @@ ActiveRecord::Schema.define(version: 2018_06_05_121658) do
     t.string "name"
     t.string "province_code"
     t.string "province_type"
+  end
+
+  create_table "purchase_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.integer "status", default: 0
+    t.text "note"
+    t.integer "total_price"
+    t.bigint "supplier_id"
+    t.bigint "user_id"
+    t.bigint "store_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "discount_money"
+    t.integer "final_price"
+    t.index ["store_id"], name: "index_purchase_orders_on_store_id"
+    t.index ["supplier_id"], name: "index_purchase_orders_on_supplier_id"
+    t.index ["user_id"], name: "index_purchase_orders_on_user_id"
   end
 
   create_table "purchases", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
@@ -224,13 +293,43 @@ ActiveRecord::Schema.define(version: 2018_06_05_121658) do
     t.string "note"
     t.bigint "user_id"
     t.integer "purchaser_id"
-    t.datetime "date"
+    t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "store_id"
+    t.integer "status", default: 0
+    t.string "name"
+    t.integer "discount_money"
+    t.time "time"
+    t.bigint "purchase_order_id"
+    t.index ["purchase_order_id"], name: "index_purchases_on_purchase_order_id"
     t.index ["store_id"], name: "index_purchases_on_store_id"
     t.index ["supplier_id"], name: "index_purchases_on_supplier_id"
     t.index ["user_id"], name: "index_purchases_on_user_id"
+  end
+
+  create_table "reports", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+    t.string "reportable_type"
+    t.bigint "reportable_id"
+    t.string "title"
+    t.text "content", limit: 16777215
+    t.bigint "user_id"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "store_id"
+    t.index ["reportable_type", "reportable_id"], name: "index_reports_on_reportable_type_and_reportable_id"
+    t.index ["store_id"], name: "index_reports_on_store_id"
+    t.index ["user_id"], name: "index_reports_on_user_id"
+  end
+
+  create_table "roles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+    t.string "name"
+    t.text "permissions"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "store_id"
+    t.index ["store_id"], name: "index_roles_on_store_id"
   end
 
   create_table "store_kinds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
@@ -332,7 +431,8 @@ ActiveRecord::Schema.define(version: 2018_06_05_121658) do
     t.bigint "province_id"
     t.bigint "district_id"
     t.bigint "commune_id"
-    t.string "birthday"
+    t.date "birthday"
+    t.integer "status", default: 0
     t.index ["commune_id"], name: "index_users_on_commune_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["district_id"], name: "index_users_on_district_id"
@@ -368,21 +468,35 @@ ActiveRecord::Schema.define(version: 2018_06_05_121658) do
   add_foreign_key "invoices", "customers"
   add_foreign_key "invoices", "stores"
   add_foreign_key "invoices", "users"
+  add_foreign_key "members", "branches"
+  add_foreign_key "members", "roles"
+  add_foreign_key "members", "stores"
+  add_foreign_key "members", "users"
+  add_foreign_key "print_templates", "stores"
   add_foreign_key "producers", "stores"
   add_foreign_key "producers", "users"
   add_foreign_key "product_groups", "stores"
   add_foreign_key "product_groups", "users"
   add_foreign_key "product_invoices", "invoices"
   add_foreign_key "product_invoices", "products"
+  add_foreign_key "product_purchase_orders", "products"
+  add_foreign_key "product_purchase_orders", "purchase_orders"
+  add_foreign_key "product_purchase_orders", "suppliers"
   add_foreign_key "product_purchases", "products"
   add_foreign_key "product_purchases", "purchases"
   add_foreign_key "product_types", "stores"
   add_foreign_key "product_types", "users"
   add_foreign_key "products", "stores"
   add_foreign_key "products", "users"
+  add_foreign_key "purchase_orders", "stores"
+  add_foreign_key "purchase_orders", "suppliers"
+  add_foreign_key "purchase_orders", "users"
   add_foreign_key "purchases", "stores"
   add_foreign_key "purchases", "suppliers"
   add_foreign_key "purchases", "users"
+  add_foreign_key "reports", "stores"
+  add_foreign_key "reports", "users"
+  add_foreign_key "roles", "stores"
   add_foreign_key "stores", "communes"
   add_foreign_key "stores", "districts"
   add_foreign_key "stores", "provinces"
