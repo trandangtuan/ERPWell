@@ -38,6 +38,7 @@ Rails.application.routes.draw do
       member do
         post 'status'
         get 'pdf'
+        get 'print'
       end
     end
     resources :product_purchase_orders

@@ -98,15 +98,14 @@
   <% end if has_permission?("purchase_order_new_purchase") %>
 
   <%= link_to "", class: "btn btn-info", remote: true do %>
-    <%= fa_icon "paper-plane", text: "Gửi email" %>
+    <%= fa_icon "paper-plane", text: "Send mail" %>
   <% end %>
 
   <%= link_to purchase_order_path(@purchase_order, format: :pdf), class: "btn btn-info" do %>
     <%= fa_icon "download", text: t(:export_file) %>
   <% end if has_permission?("purchase_order_export_file") %>
 
-  <%= link_to fa_icon("print", text: t(:print)), print_purchase_order_path, class: "btn btn-info", remote: true, onclick: "print('printf')" if has_permission?("purchase_order_print") %>
-  <%#= link_to fa_icon("print", text: t(:print)), print_purchase_order_path, class: "btn btn-info", target: "_blank"%>
+<%= link_to fa_icon("print", text: t(:print)), print_purchase_order_path(@purchase_order), class: "btn btn-info", remote: true, onclick: "print('printf')" if has_permission?("purchase_order_print") %>  <%#= link_to fa_icon("print", text: t(:print)), print_purchase_order_path, class: "btn btn-info", target: "_blank"%>
 
 
   <%= link_to fa_icon("trash", text: t(:cancel)), purchase_order_path(@purchase_order), method: :delete, data: { confirm: "Bạn có chắc chắn muốn xóa yêu cầu này ?" }, class: "btn btn-danger" if has_permission?("purchase_order_delete") %>
