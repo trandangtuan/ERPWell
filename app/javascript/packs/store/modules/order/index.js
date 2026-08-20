@@ -246,7 +246,7 @@ const mutations = {
             });
         } else {
             // TODO thông báo lỗi cho khách hàng
-            console.log("Có lỗi xảy ra khi thanh toán. Vui lòng thử lại")
+            console.log("Có lỗi xảy ra khi Payment. Vui lòng thử lại")
         }
     }
 }

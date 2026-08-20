@@ -13,7 +13,7 @@
     <div class="form-group">
       <%= f.label :product_group_id %>
       <div class="input-group">
-        <%= f.select :product_group_id, options_for_select(@product_group_options, @product.product_group_id.present? ? @product.product_group_id : ''), {prompt: "-- Chọn nhóm hàng nếu có --"}, {class: "custom-select form-control form-control-sm"} %>
+        <%= f.select :product_group_id, options_for_select(@product_group_options, @product.product_group_id.present? ? @product.product_group_id : ''), {prompt: "-- Select product category if applicable --"}, {class: "custom-select form-control form-control-sm"} %>
         <div class="input-group-append">
           <%= link_to product_groups_path, class: "btn btn-outline-secondary btn-sm", remote: true do %>
             <%= fa_icon("ellipsis-h") %>
@@ -31,7 +31,7 @@
       </div>
       <div class="col-md-6">
         <div class="form-group">
-          <%= f.label :sale_price, "Giá bán" %>
+          <%= f.label :sale_price, "Selling price" %>
           <div class="input-group">
             <%= f.number_field :sale_price, class: "form-control text-right form-control-sm", value: @product.sale_price.present? ? @product.sale_price : 0 %>
             <div class="input-group-append">
@@ -47,7 +47,7 @@
     <div class="form-group">
       <%= f.label :producer_id %>
       <div class="input-group">
-        <%= f.select :producer_id, options_for_select(@producers.collect{|producer| [producer.name, producer.id]}, @product.producer_id.present? ? @product.producer_id : ''), {prompt: "-- Không có nhà sản xuất --"}, { class: "custom-select form-control form-control-sm" } %>
+        <%= f.select :producer_id, options_for_select(@producers.collect{|producer| [producer.name, producer.id]}, @product.producer_id.present? ? @product.producer_id : ''), {prompt: "No manufacturer--"}, { class: "custom-select form-control form-control-sm" } %>
         <div class="input-group-append">
           <%= link_to producers_path, class: "btn btn-outline-secondary btn-sm", remote: true do %>
             <%= fa_icon("ellipsis-h") %>
@@ -87,7 +87,7 @@
       <div class="form-group">
         <div class="custom-file">
           <%= f.file_field :images, multiple: true, direct_upload: true, class: "custom-file-input", lang: "vi" %>
-          <label class="custom-file-label" for="customFile">Chọn nhiều ảnh (tối đa 5 ảnh)</label>
+          <label class="custom-file-label" for="customFile">Select multiple photos (up to 5 photos)</label>
         </div>
       </div>
     </div>
@@ -126,7 +126,7 @@
     <div class="card">
       <div class="card-header" id="header-property">
         <%= link_to "#collapseProperty", 'data-toggle': "collapse", 'aria-expanded': "true", class: "btn btn-link p-0 font-weight-bold" do %>
-          Theo dõi thuộc tính (Màu sắc, kích thước, ...)
+          Track attributes (Color, size, ...)
         <% end %>
         <div class="float-right">
           <i class="fa" aria-hidden="true"></i>
@@ -147,7 +147,7 @@
     <div class="card">
       <div class="card-header" id="header-unit">
         <%= link_to "#collapseUnit", 'data-toggle': "collapse", 'aria-expanded': "true", class: "btn btn-link p-0 font-weight-bold" do %>
-          Đơn vị tính
+          Unit of measurement
         <% end %>
         <div class="float-right">
           <i class="fa" aria-hidden="true"></i>

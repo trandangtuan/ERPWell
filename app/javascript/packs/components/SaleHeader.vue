@@ -12,19 +12,10 @@
                         <i class="fa fa-search"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control form-control-sm border-left-0" placeholder="Nhập mã hoặc tên mặt hàng (F3)" aria-label="Tìm mặt hàng" id="search-product-input" autofocus>
+                    <input type="text" class="form-control form-control-sm border-left-0" placeholder="Enter the item code or name (F3)" aria-label="Tìm mặt hàng" id="search-product-input" autofocus>
                 </div>
             </form>
 
-            <ul class="navbar-nav mx-auto">
-                <div class="d-flex justify-content-center help-text-login">
-                    <a class="help-text-login" @click="openReport">Báo cáo</a>
-                    <span class="help-text-login">|</span>
-                    <a class="help-text-login" @click="openManage">Quản lý</a>
-                    <span class="help-text-login">|</span>
-                    <a href="#" class="help-text-login">Nhập trả</a>
-                </div>
-            </ul>
 
         </div>
 
@@ -35,7 +26,7 @@
 
         <div class="navbar-select-branch">
             <select id="branch" name="branch" class="form-control form-control-sm">
-                <option value="Chi nhánh trung tâm" selected="selected">Chi nhánh trung tâm</option>
+                <option value="Central branch" selected="selected">Central branch</option>
             </select>
         </div>
 

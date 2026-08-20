@@ -11,7 +11,7 @@
   // Update select from New product page
   $el = $("#product_product_group_id");
   $el.empty(); // remove old options
-  $el.append($("<option></option>").attr("value", "").text("-- Chọn nhóm hàng nếu có --"));
+  $el.append($("<option></option>").attr("value", "").text("-- Select product category if applicable --"));
   <% @product_groups.walk_tree do |group, level| %>
       $el.append($("<option></option>").attr("value", "<%= group.id %>").text("<%= "#{'--' * level} #{group.name}" %>"));
   <% end %>

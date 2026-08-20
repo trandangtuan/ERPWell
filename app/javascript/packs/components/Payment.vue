@@ -1,12 +1,12 @@
 <template>
     <div class="">
         <div>
-            <h5>THANH TOÁN</h5>
+            <h5>Payment</h5>
         </div>
 
         <div class="d-flex">
             <div class="mr-auto">
-                Tổng số lượng hàng hóa
+                Total quantity of goods
             </div>
             <div>
                 {{ quantityByOrder }}
@@ -17,7 +17,7 @@
 
         <div class="d-flex">
             <div class="mr-auto">
-                Tổng tiền hàng
+                Total amount of goods
             </div>
             <div>
                 {{ totalPriceByOrder | priceFormat }}
@@ -28,7 +28,7 @@
 
         <div class="d-flex">
             <div class="mr-auto">
-                Giảm giá
+                Discount
             </div>
             <div>
                 {{ saleOff | priceFormat }}
@@ -39,7 +39,7 @@
 
         <div class="d-flex">
             <div class="mr-auto font-weight-bold">
-                Khách cần trả
+                Customers need to pay.
             </div>
             <div class="paid-price">
                 {{ (totalPriceByOrder - saleOff) | priceFormat }}
@@ -50,7 +50,7 @@
 
         <div class="d-flex">
             <div class="mr-auto">
-                Khách thanh toán (F8)
+                Customer payment (F8)
             </div>
             <div>
                 <vue-numeric currency="₫" separator="," v-model="giveMoney"></vue-numeric>
@@ -61,7 +61,7 @@
 
         <div class="d-flex">
             <div class="mr-auto ">
-                Tiền thừa trả khách
+                Change returned to the customer.
             </div>
             <div>
                 {{ returned_money | priceFormat }}
@@ -71,7 +71,7 @@
         <hr style="margin: 5px 0;">
 
         <div>
-            Ghi chú
+            Note
         </div>
 
         <div>

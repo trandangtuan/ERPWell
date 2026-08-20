@@ -36,7 +36,7 @@
 
           <div class="">
             <div>
-              <h5>THANH TOÁN</h5>
+              <h5>Payment</h5>
             </div>
 
             <div class="d-flex">
@@ -106,7 +106,7 @@
             <hr style="margin: 5px 0;">
 
             <div>
-              <%= form.text_area :note, class: "form-control form-control-sm", placeholder: "Ghi chú" %>
+              <%= form.text_area :note, class: "form-control form-control-sm", placeholder: "Note" %>
             </div>
 
           </div>
@@ -126,7 +126,7 @@
 
             <% unless @purchase.purchased?  %>
               <button type="submit" class="btn btn-success btn-lg" name="type" value="purchase">
-                <i class="fa fa-shopping-cart fa-lg"></i> Thanh toán
+                <i class="fa fa-shopping-cart fa-lg"></i> Payment
               </button>
             <% end %>
           </div>
@@ -146,7 +146,7 @@
                         <i class="fa fa-search"></i>
                       </span>
                   </div>
-                  <input type="text" class="form-control form-control-sm border-left-0" placeholder="Nhập mã hoặc tên mặt hàng (F3)" aria-label="Tìm mặt hàng" id="search-product-input" autofocus>
+                  <input type="text" class="form-control form-control-sm border-left-0" placeholder="Enter the item code or name (F3)" aria-label="Tìm mặt hàng" id="search-product-input" autofocus>
                 </div>
               </div>
             </div>

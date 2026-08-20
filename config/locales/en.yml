@@ -1,7 +1,7 @@
 en:
-  title: ERPWELL- Online Sales Management Software
-  short_title: ERPWELL
-  full_title: ERPWELL - Online Sales Management Software
+  title: WMS- Online Sales Management Software
+  short_title: WMS
+  full_title: WMS - Online Sales Management Software
   activerecord:
     errors:
       models:
@@ -222,7 +222,7 @@ en:
       add_product: Add Product
   users:
     index:
-      user_list: Danh sách người dùng
+      user_list: User list
     form:
       fullname_placeholder: Enter full name
       phone_placeholder: Enter phone number

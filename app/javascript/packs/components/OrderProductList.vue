@@ -4,10 +4,10 @@
             <table class="table table-bordered">
                 <thead>
                 <th>STT</th>
-                <th>Tên sản phẩm</th>
-                <th>Số lượng</th>
-                <th>Đơn giá</th>
-                <th>Thành tiền</th>
+                <th>Product name</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Amount</th>
                 <th></th>
                 </thead>
                 <tbody>

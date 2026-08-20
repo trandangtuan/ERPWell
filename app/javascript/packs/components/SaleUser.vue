@@ -22,11 +22,11 @@
 
         <button class="btn btn-park btn-lg w-100 text-white" @click="checkout">
             <i class="fa fa-shopping-cart"></i>
-            Thanh toán
+            Payment
         </button>
 
-        <b-modal id="modal-checkout-success" title="Thanh toán" @ok="closeOrder">
-            <p class="my-4 text-success">Đã thanh toán thành công, bạn có muốn đóng hóa đơn này không ?, </p>
+        <b-modal id="modal-checkout-success" title="Payment" @ok="closeOrder">
+            <p class="my-4 text-success">Do you want to close this invoice?</p>
         </b-modal>
     </div>
 </template>
@@ -51,7 +51,7 @@
         methods: {
             checkout() {
                 this.$store.dispatch('checkout').then(() => {
-                    //  Show dialog đã thanh toán thành công. bạn có muốn đóng hóa đơn này không ?
+                    //  Show dialog đã Payment thành công. bạn có muốn đóng hóa đơn này không ?
                     this.$bvModal.show("modal-checkout-success")
                     // In hóa đơn ???
                 })

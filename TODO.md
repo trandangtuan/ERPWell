@@ -18,9 +18,9 @@
    Tùy chọn hiển thị
    Quản lý
    Thoát
-### Phần thanh toán
-- Tìm và Chọn người thanh toán
-- Sửa | chọn ngày giờ thanh toán
+### Phần Payment
+- Tìm và Chọn người Payment
+- Sửa | chọn ngày giờ Payment
 - Chọn bảng giá: Bảng giá chung | Giá vốn | Giá VIP km 5%...
 - Tùy chọn Giao hàng: Có | Không
 - Chọn kênh bán hàng: Trực tiếp | Facebook | Khác... thêm kênh bán hàng
@@ -78,12 +78,12 @@
 #### Hàng hóa
 - Giá vốn trung bình (Giá vốn được tính theo phương pháp tính trung bình từ các giao dịch mang tính chất nhập và trả hàng nhập.)
 - Hàng hóa có thuộc tính
-- Hàng hóa đơn vị tính
+- Hàng hóa Unit of measurement
 - Quản lý tồn kho theo Serial/IMEI (Tất cả các giao dịch liên quan đều quản lý theo từng Serial/IMEI.)
 - Sản xuất hàng hóa (Cho phép thiết lập nguyên liệu thành phần cho hàng hóa, và có thể sản xuất hàng thông qua tính năng Quản lý sản xuất.)
 - Bảo hành, bảo trì (Cho phép bảo hành, bảo trì, sửa chữa hàng hóa.)
 #### Đối tác
-- Tích điểm (Tích điểm thưởng cho khách hàng khi mua hàng, quy đổi điểm thưởng để thanh toán đơn hàng hoặc sử dụng điểm thưởng để chia nhóm khách hàng.)
+- Tích điểm (Tích điểm thưởng cho khách hàng khi mua hàng, quy đổi điểm thưởng để Payment đơn hàng hoặc sử dụng điểm thưởng để chia nhóm khách hàng.)
 ``
 Thiết lập tích điểm ???
 ``
@@ -98,7 +98,7 @@ Thiết lập tích điểm ???
 - Thu khác khi bán hàng (Cho phép tạo và quản lý các khoản thu khác khi bán hàng như: phí giao hàng, phí dịch vụ, VAT...Phí thu khác được tính bằng số tiền VNĐ hoặc % giá trị đơn hàng.)
 - Không cho phép in báo giá khi bán hàng (Không hiển thị nút In trên màn hình bán hàng. Chỉ cho phép in khi phiếu đặt hàng hoặc hóa đơn được lưu vào hệ thống.)
 - Khuyến mại
-- Voucher (Cho phép quản lý, phát hành, thanh toán bằng voucher.)
+- Voucher (Cho phép quản lý, phát hành, Payment bằng voucher.)
 - Giới hạn thời gian trả hàng
 - Không cho phép thay đổi thời gian giao dịch (Tùy chọn cho phép/không cho phép thay đổi thời gian của từng loại giao dịch.)
 - Khóa sổ (Không cho phép thay đổi thông tin của những giao dịch có thời gian trước ngày khóa sổ (trừ các giao dịch đặt hàng và giao dịch đặt hàng nhập).)

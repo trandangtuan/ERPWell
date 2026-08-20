@@ -13,7 +13,7 @@
   // Update select from New product page
   $el = $("#product_producer_id");
   $el.empty(); // remove old options
-  $el.append($("<option></option>").attr("value", "").text("-- Không có nhà sản xuất --"));
+  $el.append($("<option></option>").attr("value", "").text("No manufacturer--"));
   <% @producers.each do |producer| %>
     $el.append($("<option></option>").attr("value", "<%= producer.id %>").text("<%= producer.name %>"));
   <% end %>

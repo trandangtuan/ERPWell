@@ -55,7 +55,7 @@
 
       <div class="d-flex">
         <div class="mr-auto">
-          Khách thanh toán (F8)
+          Khách Payment (F8)
         </div>
         <div>
           <%= text_field_tag "give-price", 0 %>
@@ -72,7 +72,7 @@
       </div>
 
       <div>
-        Ghi chú
+        Note
       </div>
       <div>
         <%= text_area_tag 'note', '', class: 'form-control' %>
@@ -107,7 +107,7 @@
           <div class="tab-pane fade show active" id="page1" role="tabpanel" aria-labelledby="home-tab">
             <table class="table table-bordered">
               <tr>
-                <td>Tên sản phẩm</td>
+                <td>Product Name</td>
                 <td>1</td>
                 <td>50000</td>
                 <td>50000</td>
@@ -183,7 +183,7 @@
                     break;
                 case 'F7':
                     break;
-                case 'F8': // Khách thanh toán
+                case 'F8': // Khách Payment
                     e.preventDefault();
                     e.stopImmediatePropagation();
 
@@ -197,7 +197,7 @@
                         // Only F9 : Lưu
                     }
                     break;
-                case 'F10': // Lưu và in - Thanh toán
+                case 'F10': // Lưu và in - Payment
                     e.preventDefault();
                     e.stopImmediatePropagation();
 

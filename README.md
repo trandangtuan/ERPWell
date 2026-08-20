@@ -1,5 +1,5 @@
 # Giới thiệu
-ERPWell là phần mềm quản lý bán hàng, kinh doanh sử dụng tại các điểm cửa hàng nhỏ, các đơn vị kinh doanh hộ gia đình, siêu thị hoặc trung tâm thương mại.
+WMS là phần mềm quản lý bán hàng, kinh doanh sử dụng tại các điểm cửa hàng nhỏ, các đơn vị kinh doanh hộ gia đình, siêu thị hoặc trung tâm thương mại.
 
 Ưu điểm của Part Việt so với các phần mềm bán hàng truyền thống
 - Phần mềm chạy trên nền web, lưu trữ đám mây, không cần phải cài đặt, chỉ cần khởi tạo và sử dụng
@@ -21,7 +21,7 @@ ERPWell là phần mềm quản lý bán hàng, kinh doanh sử dụng tại cá
 - Quản lý đối tác: Khách hàng & Nhà cung cấp
 - Quản lý nhập hàng
 - Quảng lý đặt hàng trước khi nhập từ nhà cung cấp
-- Quản lý bán hàng: Thanh toán và lập hóa đơn mua hàng
+- Quản lý bán hàng: Payment và lập hóa đơn mua hàng
 - Quản lý người dùng trong cửa hàng
 
 ![QuanLy](screenshots/quanly.png)
@@ -31,10 +31,10 @@ ERPWell là phần mềm quản lý bán hàng, kinh doanh sử dụng tại cá
 - In hóa đơn & Tùy chỉnh mẫu hóa đơn
 - Cho phép làm việc Offline ngay cả khi mất mạng. Đồng bộ dữ liệu khi có mạng trở lại
 - Cho phép lưu phiên làm việc và phục hồi khi có sự cố mất điện
-- Cho phép thanh toán nhiều hóa đơn
-- Cho phép in lại hóa đơn đã thanh toán
+- Cho phép Payment nhiều hóa đơn
+- Cho phép in lại hóa đơn đã Payment
 - Sao lưu dữ liệu hàng ngày. Tối đa lên đến 7 ngày. Nhằm ngăn chặn mất mát dữ liệu.
-- Cho phép thanh toán trên máy tính bảng
+- Cho phép Payment trên máy tính bảng
 - Cho phép quản lý trên điện thoại, máy tính bảng
 - Cho phép đồng bộ dữ liệu từ trên trang TMĐT khác: Tiki, Shopee, Lazada, Sendo
 - Tạo trang web bán hàng
@@ -66,7 +66,7 @@ Phần mềm đương nhiên vẫn là miễn phí nhé mọi người. Ngoài r
 
 # Hướng dẫn sử dụng
 ## Phân tích nhanh dự án
-- ERPWell là ứng dụng Ruby on Rails 5.2, Ruby 2.5.1, dùng MySQL làm CSDL chính.
+- WMS là ứng dụng Ruby on Rails 5.2, Ruby 2.5.1, dùng MySQL làm CSDL chính.
 - Giao diện có Rails views truyền thống và phần frontend Vue 2/Webpacker trong `app/javascript`.
 - Dự án đã có i18n với locale mặc định là tiếng Việt tại `config/application.rb`.
 - Các bản dịch nằm trong `config/locales`, hiện có `vi.yml`, `en.yml`, `devise.vi.yml`, `devise.en.yml`.

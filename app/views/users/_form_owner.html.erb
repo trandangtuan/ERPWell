@@ -16,14 +16,14 @@
         <div class="form-group">
           <%= f.label :role, class: "col-form-label font-weight-bold" %>
           <% if current_store.user == current_user %>
-            <% role = "Chủ cửa hàng" %>
+            <% role = "Shop owner" %>
           <% else %>
             <% role = current_store.members.where(user_id: user.id).first.present? ? current_store.members.where(user_id: user.id).first.role.name : "" %>
           <% end %>
           <%= f.label role %>
         </div>
 
-        <div class="font-weight-bold">Đổi mật khẩu</div>
+        <div class="font-weight-bold">Change password</div>
 
         <div class="form-group">
           <%= f.label :current_password, class: "col-form-label font-weight-bold" %>

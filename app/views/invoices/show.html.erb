@@ -62,7 +62,7 @@
             </div>
 
             <div class="col-md-4">
-              <div>Ghi chú</div>
+              <div>Note</div>
               <div><%= @invoice.note %></div>
             </div>
           </div>
@@ -100,27 +100,27 @@
             <div class="col">
               <table class="table table-borderless float-right" style="width: 400px">
                 <tr>
-                  <td class="text-right">Tổng số lượng hàng</td>
+                  <td class="text-right">Total number of items</td>
                   <td class="text-right"><%= total_quantity %></td>
                 </tr>
                 <tr>
-                  <td class="text-right">Tổng số mặt hàng</td>
-                  <td class="text-right"><%= @invoice.product_invoices.size %></td>
+                  <td class="text-right">Total number of products</td>
+                  <td class="text-right"><%= @invoice.product_invoices.size %>
                 </tr>
                 <tr>
-                  <td class="text-right">Tổng tiền hàng</td>
+                  <td class="text-right">Total amount</td>
                   <td class="text-right"><%= number_to_dong(@invoice.total_price) %></td>
                 </tr>
                 <tr>
-                  <td class="text-right">Giảm giá</td>
+                  <td class="text-right">Discount</td>
                   <td class="text-right"><%= number_to_dong @invoice.sale_off %></td>
                 </tr>
                 <tr>
-                  <td class="text-right">Khách cần trả</td>
+                  <td class="text-right">Customer needs to pay</td>
                   <td class="text-right"><%= number_to_dong(@invoice.final_price) %></td>
                 </tr>
                 <tr>
-                  <td class="text-right">Khách đã trả</td>
+                  <td class="text-right">Customer has paid</td>
                   <td class="text-right"><%= number_to_dong(@invoice.given_money) %></td>
                 </tr>
               </table>

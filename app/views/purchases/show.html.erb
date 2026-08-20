@@ -62,7 +62,7 @@
             </div>
 
             <div class="col-md-4">
-              <div>Ghi chú</div>
+              <div>Note</div>
               <div><%= @purchase.note %></div>
             </div>
           </div>
@@ -98,27 +98,27 @@
             <div class="col">
               <table class="table table-borderless float-right" style="width: 400px">
                 <tr>
-                  <td class="text-right">Tổng số lượng hàng</td>
+                  <td class="text-right">Total number of items</td>
                   <td class="text-right"><%= total_quantity %></td>
                 </tr>
                 <tr>
-                  <td class="text-right">Tổng số mặt hàng</td>
+                  <td class="text-right">Total number of products</td>
                   <td class="text-right"><%= @purchase.product_purchases.size %></td>
                 </tr>
                 <tr>
-                  <td class="text-right">Tổng tiền hàng</td>
+                  <td class="text-right">Total amount</td>
                   <td class="text-right"><%= number_to_dong(@purchase.total_price) %></td>
                 </tr>
                 <tr>
-                  <td class="text-right">Giảm giá</td>
+                  <td class="text-right">Discount</td>
                   <td class="text-right"><%= number_to_currency(@purchase.discount_money, precision: 0, unit: '') %></td>
                 </tr>
                 <tr>
-                  <td class="text-right">Cần trả nhà cung cấp</td>
+                  <td class="text-right">Amount due to supplier</td>
                   <td class="text-right"><%= number_to_currency(@purchase.price, precision: 0, unit: '') %></td>
                 </tr>
                 <tr>
-                  <td class="text-right">Đã trả nhà cung cấp</td>
+                  <td class="text-right">Amount paid to supplier</td>
                   <td class="text-right"><%= number_to_currency(@purchase.paid, precision: 0, unit: '') %></td>
                 </tr>
               </table>

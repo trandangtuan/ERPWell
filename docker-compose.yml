@@ -20,6 +20,21 @@ services:
       - redis
       - elasticsearch
 
+  webpack:
+    build: .
+    command: yarn webpack-dev-server --host 0.0.0.0 --port 3035 --config config/webpack/development.js
+    ports:
+      - "3035:3035"
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+    environment:
+      RAILS_ENV: development
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
+      WEBPACKER_DEV_SERVER_PUBLIC: localhost:3035
+    depends_on:
+      - web
+
   db:
     image: mysql:5.7
     environment:

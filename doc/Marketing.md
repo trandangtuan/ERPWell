@@ -23,16 +23,16 @@
 |Hỗ trợ khôi phục dữ liệu|Không|Không|Có|
 |CRM**|Không|Hỗ trợ|Hỗ trợ|
 
-##### Ghi chú
+##### Note
 - CH: Cửa hàng
 - Offline: Hỗ trợ cài đặt thiết lập tận nơi (Miễn phí trong phạm vi 100km)
 - `*` Đầy đủ các chức vụ: Chủ cửa hàng + Quản lý + Nhân viên bán hàng + QL Kho + Thu ngân + Giao hàng
 - `**` CRM là phần mềm quản lý quan hệ khách hàng. Để hiểu được CRM là gì ? Tại sao CRM giúp khách hàng thân thiết với CH ? Làm sao để người dùng quay lại mua hàng thường xuyên hơn? ... Xem tại đây 
 
-#### Chính sách thanh toán
-- Thanh toán tối thiểu 6 tháng. 
-- Thanh toán 1 năm tặng 2 tháng miễn phí. 
-- Thanh toán 2 năm tặng 6 tháng miễn phí.
+#### Chính sách Payment
+- Payment tối thiểu 6 tháng. 
+- Payment 1 năm tặng 2 tháng miễn phí. 
+- Payment 2 năm tặng 6 tháng miễn phí.
 
 #### Chinh sách đa cửa hàng
 - Thêm 99.000đ/chi nhánh. Tại sao giá cho 1 chi nhánh lại cao hơn giá cửa hàng cơ bản, Vì: Dữ liệu được liên kết khắp các chi nhánh, đảm bảo không xung đột đơn từ, hàng hóa, chuyển đổi nhân viên,...

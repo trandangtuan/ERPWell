@@ -50,7 +50,7 @@
 
                 const order = {
                     id: String(time),
-                    title: 'Hóa đơn ' + this.nextNumber,
+                    title: 'Bill ' + this.nextNumber,
                     number: this.nextNumber,
                     orderProducts: [],
                     total_price: 0,
