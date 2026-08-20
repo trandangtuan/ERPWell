@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   get 'get_district_list', to: "application#get_districts"
   get 'get_commune_list', to: "application#get_communes"
   get 'manage', to: "manage#index"
+  get 'manage/inventory', to: "manage#inventory", as: :manage_inventory
+  get 'manage/sales', to: "manage#sales", as: :manage_sales
+  get 'manage/profit', to: "manage#profit", as: :manage_profit
   get 'sale', to: "sale#index"
   get 'dashboard', to: "sale#dashboard"
   get 'get_current_user', to: "application#get_current_user"

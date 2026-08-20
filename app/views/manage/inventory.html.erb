@@ -1,0 +1,97 @@
+<div class="manage-dashboard">
+  <section class="manage-page-header">
+    <div>
+      <p class="manage-eyebrow">Inventory</p>
+      <h1>Stock Control</h1>
+      <p>Monitor warehouse value, low-stock products, and products with the highest stock levels.</p>
+    </div>
+    <%= link_to fa_icon("plus", text: "Add product"), new_product_path, class: "btn btn-sale-primary" %>
+  </section>
+
+  <section class="stat-grid">
+    <div class="stat-card">
+      <span class="stat-icon"><%= fa_icon "archive" %></span>
+      <span class="stat-label">Total products</span>
+      <strong><%= number_with_delimiter(@total_products) %></strong>
+    </div>
+    <div class="stat-card">
+      <span class="stat-icon"><%= fa_icon "check-circle" %></span>
+      <span class="stat-label">Active products</span>
+      <strong><%= number_with_delimiter(@active_products) %></strong>
+    </div>
+    <div class="stat-card">
+      <span class="stat-icon"><%= fa_icon "cubes" %></span>
+      <span class="stat-label">Units in stock</span>
+      <strong><%= number_with_delimiter(@total_stock) %></strong>
+    </div>
+    <div class="stat-card">
+      <span class="stat-icon"><%= fa_icon "money" %></span>
+      <span class="stat-label">Stock value</span>
+      <strong><%= number_to_dong(@stock_value) %></strong>
+    </div>
+  </section>
+
+  <div class="dashboard-layout">
+    <section class="dashboard-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="manage-eyebrow">Needs attention</p>
+          <h2>Low-stock products</h2>
+        </div>
+        <%= link_to "View products", products_path, class: "panel-link" %>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-sm dashboard-table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Code</th>
+              <th class="text-right">Stock</th>
+              <th class="text-right">Minimum</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @low_stock_products.each do |product| %>
+              <tr>
+                <td><%= link_to product.name, product_path(product) %></td>
+                <td><%= product.code.presence || "No code" %></td>
+                <td class="text-right"><%= product.in_stock || 0 %></td>
+                <td class="text-right"><%= product.in_stock_min || 0 %></td>
+              </tr>
+            <% end %>
+            <% if @low_stock_products.blank? %>
+              <tr>
+                <td colspan="4" class="empty-row">No low-stock products.</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="dashboard-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="manage-eyebrow">Warehouse</p>
+          <h2>Highest stock</h2>
+        </div>
+      </div>
+
+      <div class="stock-list">
+        <% @top_stock_products.each do |product| %>
+          <%= link_to product_path(product), class: "stock-item" do %>
+            <span>
+              <strong><%= product.name %></strong>
+              <small><%= product.code.presence || "No code" %></small>
+            </span>
+            <em><%= number_with_delimiter(product.in_stock || 0) %></em>
+          <% end %>
+        <% end %>
+        <% if @top_stock_products.blank? %>
+          <p class="empty-row">No inventory data yet.</p>
+        <% end %>
+      </div>
+    </section>
+  </div>
+</div>

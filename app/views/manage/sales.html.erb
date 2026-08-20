@@ -1,0 +1,97 @@
+<div class="manage-dashboard">
+  <section class="manage-page-header">
+    <div>
+      <p class="manage-eyebrow">Sales</p>
+      <h1>Sales Performance</h1>
+      <p>Track revenue, invoice activity, and best-selling products for the current month.</p>
+    </div>
+    <%= link_to fa_icon("desktop", text: "Open POS"), sale_path, class: "btn btn-sale-primary", target: "_blank" %>
+  </section>
+
+  <section class="stat-grid">
+    <div class="stat-card">
+      <span class="stat-icon"><%= fa_icon "line-chart" %></span>
+      <span class="stat-label">Today's revenue</span>
+      <strong><%= number_to_dong(@today_revenue) %></strong>
+    </div>
+    <div class="stat-card">
+      <span class="stat-icon"><%= fa_icon "calendar" %></span>
+      <span class="stat-label">Monthly revenue</span>
+      <strong><%= number_to_dong(@month_revenue) %></strong>
+    </div>
+    <div class="stat-card">
+      <span class="stat-icon"><%= fa_icon "shopping-cart" %></span>
+      <span class="stat-label">Completed invoices</span>
+      <strong><%= number_with_delimiter(@completed_invoice_count) %></strong>
+    </div>
+    <div class="stat-card">
+      <span class="stat-icon"><%= fa_icon "calculator" %></span>
+      <span class="stat-label">Average order value</span>
+      <strong><%= number_to_dong(@average_order_value) %></strong>
+    </div>
+  </section>
+
+  <div class="dashboard-layout">
+    <section class="dashboard-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="manage-eyebrow">Recent activity</p>
+          <h2>Latest invoices</h2>
+        </div>
+        <%= link_to "View all", invoices_path, class: "panel-link" %>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-sm dashboard-table">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Customer</th>
+              <th class="text-right">Total</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @recent_invoices.each do |invoice| %>
+              <tr>
+                <td><%= link_to invoice.code.presence || "##{invoice.id}", invoice_path(invoice) %></td>
+                <td><%= invoice.customer.try(:name).presence || "Walk-in customer" %></td>
+                <td class="text-right"><%= number_to_dong(invoice.final_price || invoice.total_price || 0) %></td>
+                <td><span class="status-pill"><%= invoice.status %></span></td>
+              </tr>
+            <% end %>
+            <% if @recent_invoices.blank? %>
+              <tr>
+                <td colspan="4" class="empty-row">No invoices yet.</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="dashboard-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="manage-eyebrow">Products</p>
+          <h2>Best sellers</h2>
+        </div>
+      </div>
+
+      <div class="stock-list">
+        <% @top_sold_products.each do |product| %>
+          <%= link_to product_path(product), class: "stock-item" do %>
+            <span>
+              <strong><%= product.name %></strong>
+              <small><%= product.code.presence || "No code" %> · <%= number_to_dong(product.sold_value || 0) %></small>
+            </span>
+            <em><%= number_with_delimiter(product.sold_quantity || 0) %></em>
+          <% end %>
+        <% end %>
+        <% if @top_sold_products.blank? %>
+          <p class="empty-row">No completed sales this month.</p>
+        <% end %>
+      </div>
+    </section>
+  </div>
+</div>

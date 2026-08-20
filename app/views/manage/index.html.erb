@@ -1,0 +1,137 @@
+<div class="manage-dashboard">
+  <section class="manage-hero">
+    <div>
+      <p class="manage-eyebrow">System overview</p>
+      <h1>Welcome, <%= current_user.fullname.presence || current_user.username || current_user.email %></h1>
+      <p class="manage-hero-copy">Track sales, inventory, and store operations from one workspace.</p>
+    </div>
+    <div class="manage-hero-actions">
+      <%= link_to fa_icon("desktop", text: "Point of sale"), sale_path, class: "btn btn-sale-primary", target: "_blank" %>
+      <%= link_to fa_icon("plus", text: "Create invoice"), new_invoice_path, class: "btn btn-light" %>
+    </div>
+  </section>
+
+  <section class="stat-grid">
+    <% @stats.each do |stat| %>
+      <%= link_to stat[:path], class: "stat-card" do %>
+        <span class="stat-icon"><%= fa_icon stat[:icon] %></span>
+        <span class="stat-label"><%= stat[:label] %></span>
+        <strong>
+          <% if stat[:money] %>
+            <%= number_to_dong(stat[:value]) %>
+          <% else %>
+            <%= number_with_delimiter(stat[:value]) %>
+          <% end %>
+        </strong>
+      <% end %>
+    <% end %>
+  </section>
+
+  <div class="dashboard-layout">
+    <section class="dashboard-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="manage-eyebrow">Quick actions</p>
+          <h2>Daily workflows</h2>
+        </div>
+      </div>
+
+      <div class="quick-action-grid">
+        <% @quick_actions.each do |action| %>
+          <%= link_to action[:path], class: "quick-action", target: action[:target] do %>
+            <span class="quick-action-icon"><%= fa_icon action[:icon] %></span>
+            <span>
+              <strong><%= action[:title] %></strong>
+              <small><%= action[:text] %></small>
+            </span>
+            <em><%= action[:cta] %></em>
+          <% end %>
+        <% end %>
+      </div>
+    </section>
+
+    <section class="dashboard-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="manage-eyebrow">Modules</p>
+          <h2>Management</h2>
+        </div>
+      </div>
+
+      <div class="module-grid">
+        <% @module_cards.each do |card| %>
+          <%= link_to card[:path], class: "module-card" do %>
+            <span><%= fa_icon card[:icon] %></span>
+            <strong><%= number_with_delimiter(card[:count]) %></strong>
+            <small><%= card[:title] %></small>
+          <% end %>
+        <% end %>
+      </div>
+    </section>
+  </div>
+
+  <div class="dashboard-layout">
+    <section class="dashboard-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="manage-eyebrow">Recent activity</p>
+          <h2>Latest invoices</h2>
+        </div>
+        <%= link_to "View all", invoices_path, class: "panel-link" %>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-sm dashboard-table">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Customer</th>
+              <th class="text-right">Total</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @recent_invoices.each do |invoice| %>
+              <tr>
+                <td><%= link_to invoice.code.presence || "##{invoice.id}", invoice_path(invoice) %></td>
+                <td><%= invoice.customer.try(:name).presence || "Walk-in customer" %></td>
+                <td class="text-right"><%= number_to_dong(invoice.final_price || invoice.total_price || 0) %></td>
+                <td><span class="status-pill"><%= invoice.status %></span></td>
+              </tr>
+            <% end %>
+            <% if @recent_invoices.blank? %>
+              <tr>
+                <td colspan="4" class="empty-row">No invoices yet.</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="dashboard-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="manage-eyebrow">Inventory</p>
+          <h2>Stock alerts</h2>
+        </div>
+        <%= link_to "View stock", products_path, class: "panel-link" %>
+      </div>
+
+      <div class="stock-list">
+        <% @low_stock_products.each do |product| %>
+          <%= link_to product_path(product), class: "stock-item" do %>
+            <span>
+              <strong><%= product.name %></strong>
+              <small><%= product.code.presence || "No code" %></small>
+            </span>
+            <em><%= product.in_stock || 0 %>/<%= product.in_stock_min || 0 %></em>
+          <% end %>
+        <% end %>
+        <% if @low_stock_products.blank? %>
+          <p class="empty-row">No inventory data yet.</p>
+        <% end %>
+      </div>
+    </section>
+  </div>
+</div>

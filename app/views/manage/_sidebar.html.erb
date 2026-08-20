@@ -53,22 +53,22 @@
           <% end %>
         </li>
 
-        <li>
-          <%= link_to "#" do %>
+        <li class="<%= current_page?(manage_inventory_path) ? "active" : '' %>">
+          <%= link_to manage_inventory_path do %>
             <%= fa_icon "list-alt", class: "sidebar-icon" %>
             <span class="sidebar-name">Inventory</span>
           <% end %>
         </li>
 
-        <li>
-          <%= link_to "#" do %>
+        <li class="<%= current_page?(manage_sales_path) ? "active" : '' %>">
+          <%= link_to manage_sales_path do %>
             <%= fa_icon "line-chart", class: "sidebar-icon" %>
             <span class="sidebar-name">Sales</span>
           <% end %>
         </li>
 
-        <li>
-          <%= link_to "#" do %>
+        <li class="<%= current_page?(manage_profit_path) ? "active" : '' %>">
+          <%= link_to manage_profit_path do %>
             <%= fa_icon "money", class: "sidebar-icon" %>
             <span class="sidebar-name">Profit</span>
           <% end %>
