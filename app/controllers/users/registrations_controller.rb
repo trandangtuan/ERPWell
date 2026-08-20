@@ -16,7 +16,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     resource.save
     yield resource if block_given?
     if resource.persisted?
-      store_params = { user_id: resource.id, address: resource.address, province_id: resource.province_id, district_id: resource.district_id }
+      store_params = { user_id: resource.id, address: resource.address, area: resource.area, district_area: resource.district_area, province_id: resource.province_id, district_id: resource.district_id }
       store = Store.new(new_store_params.merge(store_params))
       store.save
 
@@ -69,7 +69,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:fullname, :email, :phone, :username, :province_id, :district_id, :address])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:fullname, :email, :phone, :username, :area, :district_area, :province_id, :district_id, :address])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
@@ -89,6 +89,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   def new_store_params
-    params.require(:store).permit(:name, :email, :address, :province_id, :district_id, :user_id, :store_type_id, :store_kind_id)
+    params.require(:store).permit(:name, :email, :address, :area, :district_area, :province_id, :district_id, :user_id, :store_type_id, :store_kind_id)
   end
 end

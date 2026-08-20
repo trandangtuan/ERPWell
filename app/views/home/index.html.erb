@@ -1,0 +1,85 @@
+<main class="landing-page">
+  <section class="landing-hero">
+    <div class="landing-hero-content">
+      <p class="landing-eyebrow">Retail management made simple</p>
+      <h1>Run sales, inventory, and purchases from one clean workspace.</h1>
+      <p class="landing-copy">
+        ERPWell helps small stores manage products, invoices, customers, suppliers, and daily operations without heavy setup.
+      </p>
+      <div class="landing-actions">
+        <% if user_signed_in? %>
+          <%= link_to fa_icon("list", text: "Open dashboard"), manage_path, class: "btn btn-landing-primary" %>
+          <%= link_to fa_icon("shopping-cart", text: "Start selling"), sale_path, class: "btn btn-landing-secondary" %>
+        <% else %>
+          <%= link_to "Create free account", new_user_registration_path, class: "btn btn-landing-primary" %>
+          <%= link_to "Sign in", new_user_session_path, class: "btn btn-landing-secondary" %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="landing-preview" aria-hidden="true">
+      <div class="preview-topbar">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="preview-metrics">
+        <div>
+          <small>Today</small>
+          <strong>24 orders</strong>
+        </div>
+        <div>
+          <small>Revenue</small>
+          <strong>18.5M</strong>
+        </div>
+      </div>
+      <div class="preview-list">
+        <span style="width: 88%;"></span>
+        <span style="width: 64%;"></span>
+        <span style="width: 76%;"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="landing-section" id="features">
+    <div class="section-heading">
+      <p class="landing-eyebrow">Core features</p>
+      <h2>Everything your store needs to move faster</h2>
+    </div>
+
+    <div class="feature-grid">
+      <article class="feature-card">
+        <span><%= fa_icon "shopping-cart" %></span>
+        <h3>Point of sale</h3>
+        <p>Create invoices quickly and keep the sales counter moving.</p>
+      </article>
+      <article class="feature-card">
+        <span><%= fa_icon "barcode" %></span>
+        <h3>Product catalog</h3>
+        <p>Manage prices, stock levels, product groups, and product details.</p>
+      </article>
+      <article class="feature-card">
+        <span><%= fa_icon "truck" %></span>
+        <h3>Purchasing</h3>
+        <p>Track purchase orders, suppliers, stock receipts, and costs.</p>
+      </article>
+      <article class="feature-card">
+        <span><%= fa_icon "line-chart" %></span>
+        <h3>Reports</h3>
+        <p>See sales, inventory alerts, and estimated profit in the dashboard.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="landing-workflow">
+    <div>
+      <p class="landing-eyebrow">Daily workflow</p>
+      <h2>From opening stock to closing revenue</h2>
+    </div>
+    <div class="workflow-steps">
+      <div><strong>1</strong><span>Add products and stock levels</span></div>
+      <div><strong>2</strong><span>Sell from the POS screen</span></div>
+      <div><strong>3</strong><span>Review invoices and profit</span></div>
+    </div>
+  </section>
+</main>

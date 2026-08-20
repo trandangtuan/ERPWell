@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_20_095323) do
+ActiveRecord::Schema.define(version: 2026_08_20_000000) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -362,6 +362,7 @@ ActiveRecord::Schema.define(version: 2019_12_20_095323) do
     t.bigint "store_kind_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "district_area"
     t.index ["commune_id"], name: "index_stores_on_commune_id"
     t.index ["district_id"], name: "index_stores_on_district_id"
     t.index ["province_id"], name: "index_stores_on_province_id"
@@ -433,6 +434,7 @@ ActiveRecord::Schema.define(version: 2019_12_20_095323) do
     t.bigint "commune_id"
     t.date "birthday"
     t.integer "status", default: 0
+    t.string "district_area"
     t.index ["commune_id"], name: "index_users_on_commune_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["district_id"], name: "index_users_on_district_id"

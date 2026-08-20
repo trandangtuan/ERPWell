@@ -52,24 +52,13 @@
         </div>
 
         <div class="form-group">
-          <%= label_tag 'store_type', "Business Category" %>
-          <%= select_tag 'store[store_type_id]', options_for_select(StoreType.all.collect{|type| [type.name, type.id]}), prompt: "-- Select a business category --", class: "form-control"%>
+          <%= f.label "Province/City", class: "label-text" %><span style="color: red;">*</span>
+          <%= f.text_field :area, class: "form-control", placeholder: "Enter your province or city", required: true %>
         </div>
 
         <div class="form-group">
-          <%= label_tag 'store_kind', "Business Type" %>
-          <%= select_tag 'store[store_kind_id]', options_for_select(StoreKind.all.collect{|kind| [kind.name, kind.id]}), prompt: "-- Select a business type --", class: "form-control"%>
-        </div>
-
-        <div class="form-row">
-          <div class="col">
-            <%= f.label "Province/City", class: "label-text" %><span style="color: red;">*</span>
-            <%= f.select :province_id, options_for_select(Province.all.collect{|province| [province.name, province.id]}), {prompt: "-- Select your province/city --"}, class: "form-control", required: true %>
-          </div>
-          <div class="col">
-            <%= f.label "District/County", class: "label-text" %><span style="color: red;">*</span>
-            <%= f.select :district_id, [], {prompt: "-- Select your district/county --"}, class: "form-control", required: true %>
-          </div>
+          <%= f.label "District/County", class: "label-text" %><span style="color: red;">*</span>
+          <%= f.text_field :district_area, class: "form-control", placeholder: "Enter your district or county", required: true %>
         </div>
 
         <div class="form-group">
@@ -101,24 +90,3 @@
 <br>
 
 
-<script>
-    $(document).ready(function () {
-        'use strict';
-
-        $('#user_province_id').on('change', function () {
-            let province_id = this.value;
-            $.ajax({
-                url: '/get_district_list',
-                data: {
-                    province_id: province_id
-                },
-                success: function (data) {
-                    $('#user_district_id').html(data);
-                    if (!province_id) {
-                        $('#user_district_id').html('<option value="">-- Select your district/county --</option>');
-                    }
-                }
-            });
-        });
-    })
-</script>
