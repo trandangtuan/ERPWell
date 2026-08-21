@@ -53,7 +53,7 @@
                 Customer payment (F8)
             </div>
             <div>
-                <vue-numeric currency="₫" separator="," v-model="giveMoney"></vue-numeric>
+                <vue-numeric currency="€" separator="," v-model="giveMoney"></vue-numeric>
             </div>
         </div>
 

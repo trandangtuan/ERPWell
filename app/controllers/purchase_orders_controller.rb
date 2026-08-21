@@ -89,19 +89,19 @@ class PurchaseOrdersController < ApplicationController
       if @purchase_order.filled?
         @purchase_order.status = :completed
         if @purchase_order.save
-          redirect_to purchase_orders_path, notice: "Đã hoàn thành đặt hàng nhập"
+          redirect_to purchase_orders_path, notice: "Import order completed."
         end
       else
-        redirect_to @purchase_order, alert: "Thông tin đơn đặt hàng nhập chưa đầy đủ. Vui long cung cấp thêm thông tin trước khi hoàn thành"
+        redirect_to @purchase_order, alert: "Information about the purchase order is not complete. Please provide more information before completing."
       end
     elsif params[:status].eql?("approve")
       if @purchase_order.filled?
         @purchase_order.status = :approved
         if @purchase_order.save
-          redirect_to @purchase_order, notice: "Đã phê duyệt"
+          redirect_to @purchase_order, notice: "Purchase order approved."
         end
       else
-        redirect_to @purchase_order, alert: "Thông tin đơn đặt hàng nhập chưa đầy đủ. Vui long cung cấp thêm thông tin trước khi phê duyệt"
+        redirect_to @purchase_order, alert: "Information about the purchase order is not complete. Please provide more information before approving."
       end
     end
   end

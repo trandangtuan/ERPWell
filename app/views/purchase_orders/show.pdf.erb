@@ -33,13 +33,13 @@
 
         <table class="table table-bordered">
           <thead>
-          <th>Mã hàng hóa</th>
-          <th>Tên hàng hóa</th>
-          <th>Số lượng</th>
-          <th>Đơn vị</th>
-          <th>Đơn giá</th>
-          <th>Nhà cung cấp</th>
-          <th>Thành tiền</th>
+          <th>Item Code</th>
+          <th>Item Name</th>
+          <th>Quantity</th>
+          <th>Unit</th>
+          <th>Unit Price</th>
+          <th>Supplier</th>
+          <th>Total</th>
           </thead>
           <tbody>
           <% total = 0 %>
@@ -62,9 +62,9 @@
             </tr>
           <% end %>
           <tr>
-            <td colspan="6">Tổng tiền hàng hóa</td>
+            <td colspan="6">Total cost of goods</td>
             <td style="font-weight: bold"><%= number_to_currency(total, precision: 0, unit: '') %></td>
-            <td><%= I18n.with_locale(:vi) { total.to_words }.capitalize %> đồng</td>
+            <td><%= I18n.with_locale(:en) { total.to_words }.capitalize %> </td>
           </tr>
           </tbody>
         </table>

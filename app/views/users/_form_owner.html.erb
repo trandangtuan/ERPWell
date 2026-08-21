@@ -55,7 +55,7 @@
         <div class="form-group">
           <%= f.label :birthday, class: "col-form-label font-weight-bold mr-3" %>
           <div class="input-group">
-            <%= f.date_select :birthday, {order: [:day, :month, :year], prompt: { day: 'Ngày', month: 'Tháng', year: 'Năm' }, start_year: Date.today.year - 18, end_year: Date.today.year - 100}, {class: "form-control form-control-sm d-inline-block"} %>
+            <%= f.date_select :birthday, {order: [:day, :month, :year], prompt: { day: 'Day', month: 'Month', year: 'Year' }, start_year: Date.today.year - 18, end_year: Date.today.year - 100}, {class: "form-control form-control-sm d-inline-block"} %>
           </div>
         </div>
 

@@ -63,8 +63,8 @@
         <div class="col-md-6 col-sm-6">
           <div class="row">
             <div class="col">
-              <%= fa_icon "check", class: "text-success", text: "Được bán trực tiếp," %>
-              <%= fa_icon "times", class: "text-danger", text: "Không tích điểm" %>
+              <%= fa_icon "check", class: "text-success", text: "Sold directly," %>
+              <%= fa_icon "times", class: "text-danger", text: "Does not earn points" %>
             </div>
 
           </div>
@@ -88,14 +88,14 @@
 
           <div class="row">
             <div class="col-4"><%= t('activerecord.attributes.product.sale_price') %></div>
-            <div class="col-8"><%= number_to_currency @product.sale_price, locale: :vi, precision: 0, delimiter: ' ' %></div>
+            <div class="col-8"><%= number_to_currency @product.sale_price, locale: :en, precision: 0, delimiter: ' ', unit: '€' %></div>
           </div>
 
           <hr>
 
           <div class="row">
             <div class="col-4"><%= t('activerecord.attributes.product.cost_price') %></div>
-            <div class="col-8"><%= number_to_currency @product.cost_price, locale: :vi, precision: 0, delimiter: ' ' %></div>
+            <div class="col-8"><%= number_to_currency @product.cost_price, locale: :en, precision: 0, delimiter: ' ', unit: '€' %></div>
           </div>
 
           <hr>
