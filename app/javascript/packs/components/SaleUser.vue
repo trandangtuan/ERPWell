@@ -108,9 +108,12 @@
             },
             checkout() {
                 this.$store.dispatch('checkout').then(() => {
-                    //  Show dialog đã Payment thành công. bạn có muốn đóng hóa đơn này không ?
-                    this.$bvModal.show("modal-checkout-success")
-                    // In hóa đơn ???
+                    this.$bvModal.show('modal-checkout-success')
+                }).catch(error => {
+                    const response = error.response || {}
+                    const errors = response.data && response.data.errors
+                    const message = errors ? Object.values(errors).join(', ') : error.message
+                    alert(message || 'Không thể tạo hóa đơn. Vui lòng thử lại.')
                 })
             },
             closeOrder() {

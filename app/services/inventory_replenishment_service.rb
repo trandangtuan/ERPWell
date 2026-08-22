@@ -1,5 +1,6 @@
 class InventoryReplenishmentService
   AUTOMATIC_ORDER_NAME = 'The automatic replenishment stock exists'.freeze
+  INTEGER_MAX = 2_147_483_647
 
   def self.call(store_id)
     new(store_id).call
@@ -17,8 +18,9 @@ class InventoryReplenishmentService
                         .lock
 
       products = products.select do |product|
-        current_stock = product.in_stock || 0
-        product.in_stock_max > current_stock && !open_order_product_ids.include?(product.id)
+        current_stock = [product.in_stock.to_i, 0].max
+        maximum_stock = product.in_stock_max.to_i
+        maximum_stock > current_stock && maximum_stock <= INTEGER_MAX && !open_order_product_ids.include?(product.id)
       end
       return if products.empty?
 
@@ -26,13 +28,18 @@ class InventoryReplenishmentService
       purchase_order ||= create_purchase_order
 
       products.each do |product|
+        current_stock = [product.in_stock.to_i, 0].max
+        quantity = [
+        product.in_stock_max.to_i - current_stock,
+        product.in_stock_max.to_i
+        ].min
         purchase_order.product_purchase_orders.create!(
           product: product,
-          quantity: product.in_stock_max - (product.in_stock || 0),
+          quantity: quantity,
           unit_price: product.cost_price || 0,
           discount_percent: 0,
           discount_money: 0,
-          total_price: (product.in_stock_max - (product.in_stock || 0)) * (product.cost_price || 0)
+        #   total_price: quantity * (product.cost_price || 0)
         )
       end
 
