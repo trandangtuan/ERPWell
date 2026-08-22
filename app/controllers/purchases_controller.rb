@@ -130,6 +130,7 @@ class PurchasesController < ApplicationController
     # Remove template row data
     params[:purchase][:product_purchases_attributes].shift if params[:purchase].present? && params[:purchase][:product_purchases_attributes].present?
     new_pps = params[:purchase][:product_purchases_attributes].map{|pp| pp['id'].to_i}
+    @purchase.status = :purchased if params[:type].eql?("purchase")
 
     respond_to do |format|
       if @purchase.update(purchase_params)

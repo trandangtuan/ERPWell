@@ -1,4 +1,6 @@
 class Invoice < ApplicationRecord
+  after_save :adjust_inventory, if: :completed_status_changed?
+
   belongs_to :customer, optional: true
   belongs_to :user
   belongs_to :seller, class_name: 'User', foreign_key: 'seller_id'
@@ -30,5 +32,26 @@ class Invoice < ApplicationRecord
     self.final_price = total - sale_off
     self.given_money = 0 if self.given_money.nil?
     self.returned_money = self.given_money - self.final_price
+  end
+
+  private
+
+  def completed_status_changed?
+    completed? && inventory_adjusted_at.nil? && (saved_change_to_status? || new_record?)
+  end
+
+  def adjust_inventory
+    transaction do
+      product_invoices.includes(:product).each do |product_invoice|
+        next unless product_invoice.product
+
+        product_invoice.product.with_lock do
+          product_invoice.product.update!(in_stock: (product_invoice.product.in_stock || 0) - product_invoice.quantity.to_i)
+        end
+      end
+
+      update_column(:inventory_adjusted_at, Time.current)
+      InventoryReplenishmentService.call(store_id)
+    end
   end
 end

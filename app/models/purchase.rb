@@ -1,4 +1,6 @@
 class Purchase < ApplicationRecord
+  after_save :adjust_inventory, if: :purchased_status_changed?
+
   belongs_to :user
 
   belongs_to :supplier, optional: true
@@ -36,5 +38,25 @@ class Purchase < ApplicationRecord
     self.total_price = total
     self.price = total - discount_money
     self.dept = paid + discount_money - total
+  end
+
+  private
+
+  def purchased_status_changed?
+    purchased? && inventory_adjusted_at.nil? && (saved_change_to_status? || new_record?)
+  end
+
+  def adjust_inventory
+    transaction do
+      product_purchases.includes(:product).each do |product_purchase|
+        next unless product_purchase.product
+
+        product_purchase.product.with_lock do
+          product_purchase.product.update!(in_stock: (product_purchase.product.in_stock || 0) + product_purchase.quantity.to_i)
+        end
+      end
+
+      update_column(:inventory_adjusted_at, Time.current)
+    end
   end
 end

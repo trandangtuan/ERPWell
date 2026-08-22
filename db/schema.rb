@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2026_08_20_000000) do
+ActiveRecord::Schema.define(version: 2026_08_22_000001) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(version: 2026_08_20_000000) do
     t.integer "status", default: 0
     t.integer "final_price"
     t.time "time"
+    t.datetime "inventory_adjusted_at"
     t.index ["customer_id"], name: "index_invoices_on_customer_id"
     t.index ["store_id"], name: "index_invoices_on_store_id"
     t.index ["user_id"], name: "index_invoices_on_user_id"
@@ -276,6 +277,8 @@ ActiveRecord::Schema.define(version: 2026_08_20_000000) do
     t.datetime "updated_at", null: false
     t.integer "discount_money"
     t.integer "final_price"
+    t.boolean "automatic", default: false, null: false
+    t.index ["store_id", "automatic", "status"], name: "index_purchase_orders_on_store_automatic_status"
     t.index ["store_id"], name: "index_purchase_orders_on_store_id"
     t.index ["supplier_id"], name: "index_purchase_orders_on_supplier_id"
     t.index ["user_id"], name: "index_purchase_orders_on_user_id"
@@ -302,6 +305,7 @@ ActiveRecord::Schema.define(version: 2026_08_20_000000) do
     t.integer "discount_money"
     t.time "time"
     t.bigint "purchase_order_id"
+    t.datetime "inventory_adjusted_at"
     t.index ["purchase_order_id"], name: "index_purchases_on_purchase_order_id"
     t.index ["store_id"], name: "index_purchases_on_store_id"
     t.index ["supplier_id"], name: "index_purchases_on_supplier_id"
