@@ -73,7 +73,14 @@
 
           <div class="row">
             <div class="col-4"><%= t('activerecord.attributes.product.code') %></div>
-            <div class="col-8 font-weight-bold"><%= @product.code %></div>
+            <div class="col-8 font-weight-bold">
+              <%= @product.code %>
+              <% if @product.code.present? %>
+                <div class="mt-2">
+                  <%= image_tag "https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=#{ERB::Util.url_encode(@product.code)}", alt: "QR code #{@product.code}", width: 160, height: 160 %>
+                </div>
+              <% end %>
+            </div>
           </div>
 
           <hr>

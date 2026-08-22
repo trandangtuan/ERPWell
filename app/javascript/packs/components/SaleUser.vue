@@ -17,7 +17,7 @@
         <hr style="margin: 0.8rem -10px;">
 
         <div class="d-flex justify-content-between align-items-center mb-2">
-            <h5 class="mb-0">{{ scannerOpen ? 'Scan the product code.' : 'Payment' }}</h5>
+            <h5 class="mb-0">{{ scannerOpen ? 'Scan the product code.' : ' ' }}</h5>
             <button v-if="!scannerOpen" type="button" class="btn btn-outline-secondary btn-sm" title="Scan QR" @click="openScanner">
                 <i class="fa fa-qrcode"></i> Scan QR
             </button>
