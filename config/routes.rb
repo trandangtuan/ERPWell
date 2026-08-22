@@ -20,6 +20,9 @@ Rails.application.routes.draw do
   scope :manage do
     resources :invoices
     resources :products do
+      collection do
+        get 'lookup'
+      end
       member do
         get 'update_status'
       end

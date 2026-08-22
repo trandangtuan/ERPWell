@@ -1,5 +1,6 @@
 const configs = {
     PRODUCTS_PATH: '/manage/products.json',
+    PRODUCT_LOOKUP_PATH: '/manage/products/lookup.json',
     USER_INFO_PATH: 'get_current_user',
     INVOICES_PATH: '/manage/invoices.json',
     CUSTOMERS_PATH: '/manage/customers.json',

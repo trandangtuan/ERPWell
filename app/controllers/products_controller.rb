@@ -3,7 +3,9 @@ class ProductsController < ApplicationController
   before_action :authenticate_user!
   def index
     @per_page = params[:per_page] || Product.per_page || 20
-    @q = Product.ransack(params[:q])
+    search_params = params[:q]
+    search_params = {name_or_code_or_abbr_name_cont: params[:term]} if params[:term].present?
+    @q = Product.ransack(search_params)
     @products = @q.result.by_store(current_store.id).paginate(:page => params[:page], :per_page => @per_page)
 
     respond_to do |format|
@@ -11,6 +13,17 @@ class ProductsController < ApplicationController
       format.json {
         render json: @products, each_serializer: ProductSerializer
       }
+    end
+  end
+
+  def lookup
+    code = params[:code].to_s.strip
+    product = Product.by_store(current_store.id).where(code: code).first
+
+    if product.present? && product.active?
+      render json: product, serializer: ProductSerializer
+    else
+      render json: { error: 'Product not found' }, status: :not_found
     end
   end
 

@@ -16,7 +16,22 @@
 
         <hr style="margin: 0.8rem -10px;">
 
-        <Payment></Payment>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="mb-0">{{ scannerOpen ? 'Scan the product code.' : 'Payment' }}</h5>
+            <button v-if="!scannerOpen" type="button" class="btn btn-outline-secondary btn-sm" title="Scan QR" @click="openScanner">
+                <i class="fa fa-qrcode"></i> Scan QR
+            </button>
+            <button v-else type="button" class="btn btn-outline-secondary btn-sm" @click="closeScanner">
+                <i class="fa fa-times"></i> Close
+            </button>
+        </div>
+
+        <QrScanner v-if="scannerOpen" @scan="lookupProduct" />
+        <Payment v-else></Payment>
+
+        <p v-if="scannerMessage" :class="scannerError ? 'text-danger' : 'text-success'" class="mt-2 mb-0">
+            {{ scannerMessage }}
+        </p>
 
         <hr style="margin: 0.8rem -10px;">
 
@@ -34,6 +49,9 @@
 <script>
     import SaleCustomer from './SaleCustomer'
     import Payment from "./Payment"
+    import QrScanner from './QrScanner'
+    import axios from 'axios'
+    import config from '../config'
     export default {
         name: "SaleUser",
         props: ['user'],
@@ -41,14 +59,53 @@
             const time = Date.now()
 
             return {
-                time: time
+                time: time,
+                scannerOpen: false,
+                scannerBusy: false,
+                scannerError: false,
+                scannerMessage: '',
+                lastScannedCode: '',
+                lastScannedAt: 0
             }
         },
         components: {
             Payment,
-            SaleCustomer
+            SaleCustomer,
+            QrScanner
         },
         methods: {
+            openScanner() {
+                this.scannerMessage = ''
+                this.scannerError = false
+                this.scannerOpen = true
+            },
+            closeScanner() {
+                this.scannerOpen = false
+                this.scannerBusy = false
+                this.scannerMessage = ''
+                this.lastScannedCode = ''
+            },
+            lookupProduct(rawCode) {
+                const code = String(rawCode || '').trim()
+                const now = Date.now()
+                if (!code || this.scannerBusy || (code === this.lastScannedCode && now - this.lastScannedAt < 1500)) return
+
+                this.lastScannedCode = code
+                this.lastScannedAt = now
+                this.scannerBusy = true
+                this.scannerError = false
+                this.scannerMessage = 'Looking for a product...'
+
+                axios.get(config.PRODUCT_LOOKUP_PATH, { params: { code: code } }).then((response) => {
+                    this.$store.dispatch('addItemToOrder', response.data)
+                    this.scannerMessage = 'Added: ' + response.data.name
+                }).catch(() => {
+                    this.scannerError = true
+                    this.scannerMessage = 'No products with this code were found: ' + code
+                }).then(() => {
+                    this.scannerBusy = false
+                })
+            },
             checkout() {
                 this.$store.dispatch('checkout').then(() => {
                     //  Show dialog đã Payment thành công. bạn có muốn đóng hóa đơn này không ?

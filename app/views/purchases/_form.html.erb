@@ -147,6 +147,11 @@
                       </span>
                   </div>
                   <input type="text" class="form-control form-control-sm border-left-0" placeholder="Enter the item code or name (F3)" aria-label="Tìm mặt hàng" id="search-product-input" autofocus>
+                  <div class="input-group-append">
+                    <button type="button" id="purchase-qr-open" class="btn btn-light btn-sm" title="Quét mã QR">
+                      <i class="fa fa-qrcode"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -232,14 +237,55 @@
     </div>
   </div>
 
+  <div id="purchase-qr-modal" class="purchase-qr-modal">
+    <div class="purchase-qr-dialog">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <h5 class="mb-0">Scan the product code.</h5>
+        <button type="button" id="purchase-qr-close" class="close" aria-label="Close">&times;</button>
+      </div>
+      <video id="purchase-qr-video" class="purchase-qr-video" autoplay muted playsinline></video>
+      <canvas id="purchase-qr-canvas" class="d-none"></canvas>
+      <p id="purchase-qr-message" class="text-muted mt-2 mb-0"></p>
+      <p class="mt-2 mb-0">If the camera is not working, please enter the code in the search box.</p>
+    </div>
+  </div>
+
   <%= form.submit "Save" %>
 <% end %>
 
 <% content_for :javascript do %>
   <%= javascript_include_tag 'lib/combobox' %>
+  <%= javascript_pack_tag 'purchase_qr_scanner' %>
 <% end %>
 <% content_for :stylesheet do %>
   <style>
+    .purchase-qr-modal {
+      position: fixed;
+      z-index: 1050;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      background: rgba(0, 0, 0, .6);
+    }
+    .purchase-qr-dialog {
+      width: 100%;
+      max-width: 480px;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 4px;
+    }
+    .purchase-qr-video {
+      display: block;
+      width: 100%;
+      max-height: 320px;
+      background: #111;
+      object-fit: contain;
+    }
     .custom-combobox {
       position: relative;
       display: inline-block;
@@ -259,6 +305,27 @@
 <% end %>
 
 <script>
+  window.addPurchaseProduct = function (product) {
+    let $row = $("#product_purchase_" + product.id);
+    if ($row.length !== 0) {
+      let number = parseInt($row.find('.input_quantity').val()) + 1;
+      $row.find('.input_quantity').val(number);
+    } else {
+      let clone_tr = $("#product_purchase_0").clone(true);
+
+      clone_tr.attr("id", "product_purchase_" + product.id);
+      clone_tr.css("display", "");
+      clone_tr.find('.code').html(product.code);
+      clone_tr.find('.name').html(product.name);
+      clone_tr.find('.unit').html(product.basic_unit || '');
+      clone_tr.find('.input_unit_price').val(product.cost_price || 0);
+      clone_tr.find('.input_product_id').val(product.id);
+      $(".product_purchase:last").after(clone_tr[0].outerHTML);
+      updateSTT();
+    }
+
+    updatePrice();
+  };
 
     $(document).on('turbolinks:load', function () {
         // Update price every times open this page
@@ -276,38 +343,7 @@
                 return false;
             },
             select: function( event, ui ) {
-                // Search exist and increase quantity
-                let $row = $("#product_purchase_" + ui.item.id);
-                if ($row.length !== 0) {
-                    let number = parseInt($row.find('.input_quantity').val()) + 1;
-                    $row.find('.input_quantity').val(number);
-                } else {
-                    let clone_tr = $("#product_purchase_0").clone(true);
-
-                    // Edit attribute
-                    clone_tr.attr("id", "product_purchase_" + ui.item.id)
-                    clone_tr.css("display", "" );
-
-                    $(clone_tr).find('.code').html(ui.item.code);
-                    $(clone_tr).find('.name').html(ui.item.name);
-                    if (ui.item.basic_unit) {
-                        $(clone_tr).find('.unit').html(ui.item.basic_unit);
-                    }
-
-                    $(".product_purchase:last").after(clone_tr[0].outerHTML)
-
-                    if (ui.item.cost_price) {
-                        $("#" + "product_purchase_" + ui.item.id).find('.input_unit_price').val(ui.item.cost_price)
-                    } else {
-                        $("#" + "product_purchase_" + ui.item.id).find('.input_unit_price').val(0)
-                    }
-
-                    $("#" + "product_purchase_" + ui.item.id).find('.input_product_id').val(ui.item.id)
-
-                    updateSTT();
-                }
-
-                updatePrice();
+              window.addPurchaseProduct(ui.item);
 
                 return false;
             }
